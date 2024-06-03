@@ -56,3 +56,39 @@ DELETE FROM rides WHERE end_lat =0 OR end_lng = 0;
 SELECT (strftime('%s', ended_at) - strftime('%s', started_at))/60 AS duration FROM rides LIMIT 5;
 
 */
+
+-- For Viz of seasonality of bike usage and product offering
+CREATE VIEW IF NOT EXISTS trip_data_duration AS
+SELECT 
+    ride_id, 
+    rideable_type, 
+    started_at, 
+    ended_at, 
+    member_casual,
+    (strftime('%s', ended_at) - strftime('%s', started_at))/60 AS duration_mins,
+    ROUND(2 * 6371000 *
+        ASIN(
+            SQRT(
+                POWER(SIN(RADIANS(end_lat - start_lat) / 2), 2) +
+                COS(RADIANS(start_lat)) * COS(RADIANS(end_lat)) *
+                POWER(SIN(RADIANS(end_lng - start_lng) / 2), 2)
+            ) 
+        ),2) AS trip_distance_meters,
+    CASE CAST (strftime('%w',started_at) as integer)
+        WHEN 0 THEN 'Sunday'
+        WHEN 1 THEN 'Monday'
+        WHEN 2 THEN 'Tuesday'
+        WHEN 3 THEN 'Wednesday'
+        WHEN 4 THEN 'Thursday'
+        WHEN 5 THEN 'Friday'
+        ELSE 'Saturday'
+        END AS day_of_week
+FROM rides
+WHERE duration_mins>0 AND duration_mins<1440;
+
+CREATE VIEW IF NOT EXISTS geographic_info AS
+SELECT
+    ride_id,
+    start_lat, start_lng,
+    end_lat, end_lng
+FROM rides;

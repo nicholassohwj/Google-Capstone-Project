@@ -12,3 +12,6 @@ source/202403-divvy-tripdata.csv
 source/202404-divvy-tripdata.csv
 database/database.db
 database/databasecsv.csv
+database/seasonality_viz.csv
+database/product_viz.csv
+database/geo_info_viz.csv
