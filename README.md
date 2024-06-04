@@ -40,7 +40,7 @@ The following are the filenames that were used for this project:
 I used __Visual Studio Code__ editor to extract and load the csv files into a folder and used __SQLite3__ to compile a database for data cleaning and transformation. Once the data cleaning was conducted, the views were created to extract data and exported into csv files to be imported into __Tableau__ for visualization. 
 
 * The full schema file used for the creation of the database and data cleaning can be found in the [schema.sql](database/schema.sql) file.  
-* The Tableau working file used for the visualizations can be found in the [visualization](##TODO) file. 
+* The Tableau working file used for the visualizations can be found in the [visualization](database/cyclistic_tableau_viz.twb) file. 
 * The data visualizations can be found in the [visualizations](visualizations) folder. 
 
 To dissect the contrast between members and casual riders, there are several preliminary questions I had into identifying if there were differences between the:
